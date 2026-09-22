@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Додати каву
+{% endblock %}
+
+{% block content %}
+
+<h1>
+	{% if product %}
+	Редагувати каву
+	{% else %}
+	Додати каву
+	{% endif %}
+</h1>
+
+<form method="post" action="{{ '/products/' ~ product.id if product else '/products' }}">
+
+	<label>Назва:</label>
+	<input type="text" name="name" value="{{ product.name if product else '' }}">
+
+	<label>Ціна:</label>
+	<input type="number" name="price" value="{{ product.price if product else '' }}">
+
+	<button type="submit">Додати</button>
+
+</form>
+
+{% endblock %}
