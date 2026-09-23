@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{{"кава"|upper}}
+{% endblock %}
+
+
+{% block content %}
+<h1>Наша кава</h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Назва</th>
+		<th>Ціна</th>
+	</tr>
+	{% for item in coffee %}
+	<tr>
+		<td>{{item.id}}</td>
+		<td>{{item.name}}</td>
+		<td>{{item.price}}</td>
+		<td>
+			<a href="/products/{{ item.id }}/edit">Редагувати</a>
+			<form method="post" action="/products/{{ item.id }}/delete">
+				<button type="submit">Видалити</button>
+			</form>
+		</td>
+	</tr>
+	{% endfor %}
+</table>
+<a href="/products/new">Додати напій</a>
+{% endblock %}
