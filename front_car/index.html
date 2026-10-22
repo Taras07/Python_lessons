@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Car Catalog</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-content">
+        <p class="eyebrow">Каталог автомобілів</p>
+        <h1>Car Catalog</h1>
+        <button id="add-car-button" class="add-car-button" type="button">
+          Додати автомобіль
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <div id="error-banner" class="error-banner" role="alert" aria-live="assertive" hidden></div>
+
+      <div id="car-modal" class="modal" hidden>
+        <section
+          class="modal-content"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="car-modal-title"
+        >
+          <div class="modal-heading">
+            <h2 id="car-modal-title">Додати автомобіль</h2>
+            <button
+              id="close-car-modal"
+              class="icon-button"
+              type="button"
+              aria-label="Закрити форму"
+            >
+              &times;
+            </button>
+          </div>
+
+          <form id="car-form" class="car-form" novalidate>
+            <label>
+              Марка та модель
+              <input name="brand_model" type="text" minlength="2" maxlength="100" required />
+              <span class="field-error" data-error-for="brand_model"></span>
+            </label>
+            <label>
+              Виробник
+              <input name="manufacturer" type="text" minlength="2" maxlength="100" required />
+              <span class="field-error" data-error-for="manufacturer"></span>
+            </label>
+            <label>
+              VIN
+              <input name="vin" type="text" minlength="17" maxlength="17" required />
+              <span class="field-error" data-error-for="vin"></span>
+            </label>
+            <label>
+              Тип кузова
+              <select name="body_type" required>
+                <option value="">Оберіть тип кузова</option>
+                <option value="sedan">Седан</option>
+                <option value="hatchback">Хетчбек</option>
+                <option value="coupe">Купе</option>
+                <option value="convertible">Кабріолет</option>
+                <option value="wagon">Універсал</option>
+                <option value="pickup">Пікап</option>
+                <option value="minivan">Мінівен</option>
+                <option value="crossover">Кросовер</option>
+              </select>
+              <span class="field-error" data-error-for="body_type"></span>
+            </label>
+            <label>
+              Об'єм двигуна
+              <input name="engine_volume" type="number" min="0" step="any" />
+              <span class="field-error" data-error-for="engine_volume"></span>
+            </label>
+            <label>
+              Тип пального
+              <select name="fuel">
+                <option value="">Не вказано</option>
+                <option value="gasoline">Бензин</option>
+                <option value="diesel">Дизель</option>
+                <option value="hybrid">Гібрид</option>
+                <option value="electric">Електро</option>
+                <option value="hydrogen">Водень</option>
+              </select>
+              <span class="field-error" data-error-for="fuel"></span>
+            </label>
+            <label>
+              Ціна
+              <input name="price" type="number" min="0" step="any" required />
+              <span class="field-error" data-error-for="price"></span>
+            </label>
+            <label>
+              Рейтинг
+              <input name="rating" type="number" min="0" step="any" />
+              <span class="field-error" data-error-for="rating"></span>
+            </label>
+            <label>
+              Доступність
+              <select name="is_available">
+                <option value="true" selected>Доступний</option>
+                <option value="false">Недоступний</option>
+              </select>
+              <span class="field-error" data-error-for="is_available"></span>
+            </label>
+            <label class="form-field-wide">
+              Опис
+              <textarea name="description" rows="3" maxlength="500"></textarea>
+              <span class="field-error" data-error-for="description"></span>
+            </label>
+            <label>
+              Рік випуску
+              <input name="year" type="number" step="1" required />
+              <span class="field-error" data-error-for="year"></span>
+            </label>
+            <label class="form-field-wide">
+              Опції (через кому)
+              <input name="options" type="text" />
+              <span class="field-error" data-error-for="options"></span>
+            </label>
+            <div class="form-actions form-field-wide">
+              <button id="submit-car" type="submit">Створити автомобіль</button>
+              <button id="cancel-car" class="secondary-button" type="button">Скасувати</button>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <form id="filters-form" class="filters">
+        <label>
+          Марка та модель
+          <input id="filter-brand-model" name="brand_model" type="text" />
+        </label>
+        <label>
+          Тип пального
+          <input id="filter-fuel" name="fuel" type="text" />
+        </label>
+        <label>
+          Мінімальний рік випуску
+          <input id="filter-min-year" name="min_year" type="number" step="1" />
+        </label>
+        <button type="submit">Застосувати фільтри</button>
+      </form>
+
+      <p id="status" class="status" role="status" aria-live="polite">Завантаження...</p>
+      <section
+        id="cars-list"
+        class="cars-list"
+        aria-label="Список автомобілів"
+        hidden
+      ></section>
+
+      <nav class="pagination" aria-label="Пагінація списку автомобілів">
+        <button id="page-prev" type="button" disabled>Назад</button>
+        <button id="page-next" type="button">Далі</button>
+      </nav>
+    </main>
+  </body>
+</html>
