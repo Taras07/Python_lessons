@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://python-lessons-1.onrender.com";
 const PAGE_LIMIT = 10;
 
 const statusElement = document.getElementById("status");
